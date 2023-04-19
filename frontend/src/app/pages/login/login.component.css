@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', monospace;
+  font-weight: bold;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box
+}
+
+
+
+.sign-in-htm,.sign-up-htm {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  transition: all .4s linear;
+}
+
+.login-container .sign-in:checked+.item,
+.login-container .sign-up:checked+.item {
+  color: #fff;
+  border-color: white;
+}
+
+.container{
+  height:540px
+}
+
+.login-form {
+  transform-style: preserve-3d;
+}
+
+.login-container .sign-in:checked+.item+.sign-up+.item+.login-form .sign-in-htm {
+  transform: rotate(0);
+}
+
+.login-container .sign-up:checked+.item+.login-form .sign-up-htm {
+  transform: rotate(0);
+}
+
+
+.footer {
+  text-align: center;
+}

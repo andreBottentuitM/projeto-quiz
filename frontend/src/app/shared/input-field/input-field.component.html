@@ -1,0 +1,4 @@
+<div class="group mb-3.5">
+  <input [attr.aria-label]="ariaLabel" [formControlName]="control" [type]="type" [placeholder]="placeholder" class="input bg-white/10 outline-none w-full text-white block placeholder:italic placeholder:text-slate-200 py-3.5 px-5 rounded-3xl border border-sky-700 focus:border-slate-300">
+  <app-error-msg [control]="formControler" [label]="ariaLabel"></app-error-msg>
+</div>
