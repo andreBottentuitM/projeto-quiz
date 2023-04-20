@@ -33,7 +33,7 @@ export class ErrorMsgComponent implements OnInit {
 
           /*Vai chamar a função getErrorMsg enviando os parametros nome da label,
           nome da propriedade de validação e o valor da propriedade. */
-            console.log(FormValidations.getErrorMsg(this.label, propertyName, this.control.errors[propertyName]))
+
             return FormValidations.getErrorMsg(this.label, propertyName, this.control.errors[propertyName]);
           }
       }
