@@ -7,7 +7,7 @@ import { Register } from 'src/models/register';
   providedIn: 'root'
 })
 export class LoginService {
-   url = "http://localhost:5000/api/users/signup"
+   url = "http://localhost:5000/api/signup"
   constructor(private http: HttpClient) { }
 
   signUp(newUser:Register): Observable<Register>{
@@ -18,7 +18,7 @@ export class LoginService {
 
   signIn(user:any): Observable<any>{
     console.log('entrou')
-    return this.http.post<any>("http://localhost:5000/api/users/signin", user).pipe(
+    return this.http.post<any>("http://localhost:5000/api/signin", user).pipe(
       tap(console.log)
     )
   }

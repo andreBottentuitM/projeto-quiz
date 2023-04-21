@@ -32,16 +32,20 @@ export class LoginComponent implements OnInit {
   }
 
   submitSignIn(){
-    this.loginService.signIn(this.formLogin.value).subscribe(e=>{
-      console.log(e)
-    })
+    if(this.formLogin.valid){
+      this.loginService.signIn(this.formLogin.value).subscribe(e=>{
+        console.log(e)
+      })
+    }
 
   }
 
   submitRegister() {
-    this.loginService.signUp(this.formRegister.value).subscribe(e=>{
-      console.log(e)
-    })
+    if(this.formRegister.valid){
+      this.loginService.signUp(this.formRegister.value).subscribe(e=>{
+        console.log(e)
+      })
+    }
   }
 
 }
