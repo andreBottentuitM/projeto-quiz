@@ -17,7 +17,6 @@ export class LoginService {
   }
 
   signIn(user:any): Observable<any>{
-    console.log('entrou')
     return this.http.post<any>("http://localhost:5000/api/signin", user).pipe(
       tap(console.log)
     )
