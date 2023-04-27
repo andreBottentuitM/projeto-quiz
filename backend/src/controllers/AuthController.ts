@@ -10,14 +10,43 @@ export const signup = async (req:any, res:any) => {
 
   
   if(!errors.isEmpty()){
-    res.json({error: errors.mapped()})
+    res.status(400).send({error: errors.mapped()})
     return
   }
   
   const data = matchedData(req)
-  
+
+  const userEmail = await prisma.user.findFirst({
+    where:{
+      email:data.emailRegister
+    }
+  }).then(user => {
+   return user
+  })
+
+  if(userEmail) {
+    res.status(400).send({
+        error:'E-mail já existe'
+    })
+    return
+  }
+
+  const userName = await prisma.user.findFirst({
+    where:{
+      name:data.nameRegister
+    }
+  }).then(user => {
+   return user
+  })
+
+  if(userName) {
+    res.status(400).send({
+        error:'Nome já existe'
+    })
+    return
+  }
       
-  const passwordHash:string = await bcrypt.hash(data.passwordRegister, 10)
+  const passwordHash = await bcrypt.hash(data.passwordRegister, 10)
 
   const newUser = {
    name:data.nameRegister,
@@ -30,7 +59,7 @@ export const signup = async (req:any, res:any) => {
       name:newUser.name,
       email:newUser.email,
       password:passwordHash
-    } as any
+    }
   })
 
 }
@@ -38,12 +67,12 @@ export const signup = async (req:any, res:any) => {
 export const signin = async (req:any, res:any) => {
     const errors = validationResult(req)
         if(!errors.isEmpty()){
-          res.json({error: errors.mapped()})
+          res.status(400).send({error: errors.mapped()})
           return
         }
         const data = matchedData(req)
 
-         const user:any  = await prisma.user.findFirst({
+         const user = await prisma.user.findFirst({
            where:{
              email:data.email
            }
@@ -52,14 +81,14 @@ export const signin = async (req:any, res:any) => {
          })
 
          if(!user){
-          res.json({error: 'Email e/ou senha errados!'})
+          res.status(400).send({error: 'Email e/ou senha errados!'})
           return
       }
 
       const match = await bcrypt.compare(data.password, user.password)
       
       if(!match) {
-        res.json({error: 'Email e/ou senha errados!'})
+        res.status(400).send({error: 'Email e/ou senha errados!'})
         return
     }
 

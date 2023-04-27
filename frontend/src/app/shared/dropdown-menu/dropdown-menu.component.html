@@ -1,0 +1,37 @@
+<div>
+<img src="../../../assets/perfil linkedin.jpg"  class="user-pic" (click)="toggleMenu()" alt="">
+<div class="sub-menu-wrap" [ngClass]="menu ? 'open-menu' : ''">
+    <div class="sub-menu">
+      <div>
+        <div class="user-info">
+          <img src="../../../assets/perfil linkedin.jpg" alt="">
+          <h2>André Bottentuit</h2>
+          <a class="mt-9 text-center cursor-pointer" (click)="logout()">Logout</a>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-black">Rankings:</h2>
+        <a href="" class="sub-menu-link">
+            <img src="../../../assets/angular-logo.png" width="10">
+            <p>#3 - 20pts</p>
+
+        </a>
+        <a href="" class="sub-menu-link">
+            <img src="../../../assets/team-developer.png" width="10">
+            <p>#4 - 20pts</p>
+
+        </a>
+        <a href="" class="sub-menu-link">
+            <img src="../../../assets/sql.jpg" width="10">
+            <p>#4 - 20pts</p>
+
+        </a>
+        <a href="" class="sub-menu-link">
+            <img src="../../../assets/aws.png" width="10">
+            <p>#10 - 20pts</p>
+
+        </a>
+      </div>
+    </div>
+</div>
+</div>

@@ -15,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
 import { InputFieldComponent } from './shared/input-field/input-field.component';
+import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { InputFieldComponent } from './shared/input-field/input-field.component'
     InicioComponent,
     QuestaoComponent,
     ErrorMsgComponent,
-    InputFieldComponent
+    InputFieldComponent,
+    DropdownMenuComponent
   ],
   imports: [
     BrowserModule,

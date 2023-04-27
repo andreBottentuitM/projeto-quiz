@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
+import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  user!:any
 
-  constructor() { }
+  quiz:any = [{
+    name:'Angular',
+    questions: '20',
+    duration:'20',
+    pathIMG:'../../../assets/angular-logo.png'
+  },
+  {
+    name:'Team Developer',
+    questions: '20',
+    duration:'20',
+    pathIMG:'../../../assets/team-developer.png'
+  },
+  {
+    name:'SQL',
+    questions: '20',
+    duration:'20',
+    pathIMG:'../../../assets/sql.jpg'
+  },
+  {
+    name:'AWS',
+    questions: '20',
+    duration:'20',
+    pathIMG:'../../../assets/aws.png'
+  }
+]
+
+  constructor(private loginService:LoginService, private quizService:QuizService) { }
 
   ngOnInit(): void {
+    this.loginService.userObservable.subscribe((newUser) => {
+      this.user = newUser;//Pegar os dados do User.
+    })
+
+    this.quizService.getQuiz()
+
+  }
+
+  get isAuth(){
+    return this.user.token;/*Caso o usuário não esteja logado, o valor vai ser undefined,
+    caso esteja, vai ter o valor do token*/
   }
 
 }

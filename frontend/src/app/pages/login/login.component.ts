@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   submitSignIn(){
     if(this.formLogin.valid){
       this.loginService.signIn(this.formLogin.value).subscribe(e=>{
-        console.log(e)
       })
     }
 
