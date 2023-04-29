@@ -1,10 +1,11 @@
 <header class="bg-sky-700 w-full mx-auto py-3 flex items-center justify-between px-5">
   <img src="../../../assets/logo.png" alt="logotipo procenge">
 
+
 <nav>
   <ul class="flex gap-5 text-white text-lg items-center ">
     <li *ngIf="!isAuth"> <a routerLink="login" class="" href="">Login</a> </li>
-    <li *ngIf="isAuth"><app-dropdown-menu></app-dropdown-menu></li>
+    <li *ngIf="isAuth" class="flex items-center"><app-dropdown-menu></app-dropdown-menu></li>
     <li> <a routerLink="ranking" href="">Ranking</a></li>
   </ul>
 </nav>

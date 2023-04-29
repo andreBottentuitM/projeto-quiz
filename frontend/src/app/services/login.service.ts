@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Register } from 'src/models/register';
@@ -24,7 +24,7 @@ export class LoginService {
     return this.userSubject.value;
   }
 
-  signUp(newUser:Register): Observable<Register>{
+  signUp(newUser:any): Observable<Register>{
     return this.http.post<Register>(this.url, newUser).pipe(
       tap({next:(user)=> {
 
@@ -52,10 +52,19 @@ export class LoginService {
     )
   }
 
+  upload(files:Set<File>, url:string){
+
+    const formData = new FormData()
+    files.forEach(file => formData.append('file', file, file.name))
+    console.log(formData)
+    const request = new HttpRequest('POST', url, formData)
+    return this.http.request(request)
+  }
+
   logout(){
     this.userSubject.next(new User());//Vai substituir o usuário atual do localStorage por um user vazio
     localStorage.removeItem(USER);/*Excluir o localStorage com nome user */
-    window.location.reload();/*Vai dar um reload no DOM. */
+    this.router.navigate(['/'])
   }
 
   private setUserToLocalStorage(user:User){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -7,11 +8,22 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./dropdown-menu.component.css']
 })
 export class DropdownMenuComponent implements OnInit {
-
+  faArrowDown = faAnglesDown
   menu:boolean=false
+  user!:any
   constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
+    this.loginService.userObservable.subscribe((newUser) => {
+      this.user = newUser;//Pegar os dados do User.
+    })
+
+  }
+
+  get currentUser(){
+    console.log(this.user.image)
+    return this.user;/*Caso o usuário não esteja logado, o valor vai ser undefined,
+    caso esteja, vai ter o valor do token*/
   }
 
   logout(){

@@ -1,20 +1,23 @@
 import {matchedData, validationResult} from 'express-validator'
 import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken';
+import jimp from 'jimp';
 import dotenv from 'dotenv'
 import prisma from '../libs/prisma'
+import { v4 as uuidv4 } from 'uuid'
 dotenv.config();
 
 export const signup = async (req:any, res:any) => {
   const errors = validationResult(req)
 
-  
+
   if(!errors.isEmpty()){
     res.status(400).send({error: errors.mapped()})
     return
   }
   
   const data = matchedData(req)
+
 
   const userEmail = await prisma.user.findFirst({
     where:{
@@ -45,21 +48,31 @@ export const signup = async (req:any, res:any) => {
     })
     return
   }
-      
+
+  let url =''
+  if(req.files && req.files.file){
+    if(['image/jpeg', 'image/jpg', 'image/png'].includes(req.files.file.mimetype)){
+      url = await addImage(req.files.file.data)
+  }
+  }
+
   const passwordHash = await bcrypt.hash(data.passwordRegister, 10)
 
   const newUser = {
    name:data.nameRegister,
    email: data.emailRegister,
-   password: passwordHash
+   password: passwordHash,
+   image: url
   }
+ 
 
   const user = await prisma.user.create({
     data:{
       name:newUser.name,
       email:newUser.email,
-      password:passwordHash
-    }
+      password:passwordHash,
+      image:newUser.image ? newUser.image : '/default_quiz.jpg'
+    } as any
   })
 
 }
@@ -96,6 +109,13 @@ export const signin = async (req:any, res:any) => {
 
 }
 
+const addImage = async (buffer:any) => {
+  let newName = `${uuidv4()}.jpg`
+  let tmpImg = await jimp.read(buffer)
+  tmpImg.cover(500, 500).quality(80).write(`./public/media/${newName}`)
+  return newName
+}
+
 const generateTokenReponse = (newUser:any) => {
 
    const token = jwt.sign(
@@ -107,6 +127,7 @@ const generateTokenReponse = (newUser:any) => {
     return {
       name: newUser.name,
       email: newUser.email,
+      image: `http://localhost:5000/media/${newUser.image}`,
       token: token
     };
 }

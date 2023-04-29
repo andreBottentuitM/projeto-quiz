@@ -1,11 +1,14 @@
 <div>
-<img src="../../../assets/perfil linkedin.jpg"  class="user-pic" (click)="toggleMenu()" alt="">
+  <div class="flex items-center gap-2 h-10 cursor-pointer" (click)="toggleMenu()">
+  <fa-icon [icon]="faArrowDown" class="text-xl" ></fa-icon>
+<img [src]="currentUser.image"  class="user-pic"  alt="logo">
+</div>
 <div class="sub-menu-wrap" [ngClass]="menu ? 'open-menu' : ''">
     <div class="sub-menu">
       <div>
         <div class="user-info">
-          <img src="../../../assets/perfil linkedin.jpg" alt="">
-          <h2>André Bottentuit</h2>
+          <img src="currentUser.image" alt="">
+          <h2>{{currentUser.name}}</h2>
           <a class="mt-9 text-center cursor-pointer" (click)="logout()">Logout</a>
         </div>
       </div>

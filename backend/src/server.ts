@@ -3,18 +3,18 @@ import cors from 'cors'
 import userRouter from './routes';
 import path from 'path';
 import dotenv from 'dotenv'
+import fileupload from 'express-fileupload'
 dotenv.config();
 
 const app = express()
 app.use(express.json());
 app.use(cors())
+app.use(fileupload())
 
 app.use("/api", userRouter);
 
-app.use(express.static('public'));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname,'public', 'index.html'))
-})
+app.use(express.static(__dirname+'public'));
+
 
 const port = process.env.PORT || 5000;
 

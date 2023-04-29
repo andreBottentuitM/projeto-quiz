@@ -9,7 +9,6 @@ import { faClock } from '@fortawesome/free-solid-svg-icons'
 })
 export class QuestaoComponent implements OnInit {
   faClock = faClock
-
   constructor() { }
 
   ngOnInit(): void {

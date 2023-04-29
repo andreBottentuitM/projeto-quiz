@@ -10,6 +10,7 @@ export class QuizService {
   constructor(private http: HttpClient) { }
 
   getQuiz(): Observable<any>{
+
     return this.http.get<any>('').pipe(
       tap({next:(user)=> {
 
