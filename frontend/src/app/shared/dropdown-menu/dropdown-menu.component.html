@@ -7,7 +7,7 @@
     <div class="sub-menu">
       <div>
         <div class="user-info">
-          <img src="currentUser.image" alt="">
+          <img [src]="currentUser.image" alt="">
           <h2>{{currentUser.name}}</h2>
           <a class="mt-9 text-center cursor-pointer" (click)="logout()">Logout</a>
         </div>
