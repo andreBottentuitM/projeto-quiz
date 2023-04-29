@@ -13,7 +13,7 @@ app.use(fileupload())
 
 app.use("/api", userRouter);
 
-app.use(express.static(__dirname+'public'));
+app.use(express.static(__dirname+'/public'));
 
 
 const port = process.env.PORT || 5000;
