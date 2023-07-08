@@ -3,100 +3,104 @@
 
 <main class="min-h-screen">
   <div class="container w-full bg-sky-700  mx-auto mt-28 max-w-md rounded-xl relative shadow-2xl mb-12">
-  <div class="login-container bg-sky-700 w-full pt-12  pr-16 pb-3 pl-16 origin-right rounded-xl">
-    <input id="item-1" type="radio" name="item" class="sign-in hidden" checked><label for="item-1"
-      class="item text-white text-xl mr-3.5 mt-0 ml-0 mb-2.5 pb-2 border-b-2 border-transparent cursor-pointer inline-block hover:">Entrar</label>
-    <input id="item-2" type="radio" name="item" class="sign-up hidden"><label for="item-2"
-      class="item text-white text-xl mr-3.5 mt-0 ml-0 mb-2.5 pb-2 border-b-2 border-transparent cursor-pointer inline-block">Cadastrar</label>
-    <div class="login-form">
-      <div class="sign-in-htm top-12 absolute inset-x-0 bottom-0">
+    <div class="login-container bg-sky-700 w-full pt-12  pr-16 pb-3 pl-16 origin-right rounded-xl">
+      <input id="item-1" type="radio" name="item" class="sign-in hidden" checked><label for="item-1"
+        class="item text-white text-xl mr-3.5 mt-0 ml-0 mb-2.5 pb-2 border-b-2 border-transparent cursor-pointer inline-block hover:">Entrar</label>
+      <input id="item-2" type="radio" name="item" class="sign-up hidden"><label for="item-2"
+        class="item text-white text-xl mr-3.5 mt-0 ml-0 mb-2.5 pb-2 border-b-2 border-transparent cursor-pointer inline-block">Cadastrar</label>
+      <div class="login-form">
+        <div class="sign-in-htm top-12 absolute inset-x-0 bottom-0">
 
-        <form [formGroup]="formLogin" (ngSubmit)="submitSignIn()">
+          <form [formGroup]="formLogin" (ngSubmit)="submitSignIn()">
 
-        <app-input-field
-          [formControler]="$any(formLogin.controls['email'])"
-          control="email"
-          ariaLabel="Email"
-          placeholder="Email"
-          id="user"
-          type="text">
-        </app-input-field>
+            <app-input-field
+            [formControler]="$any(formLogin.controls['email'])"
+            control="email" ariaLabel="Email"
+            placeholder="Email"
+            id="user"
+            type="text">
+            </app-input-field>
 
-          <app-input-field
-           [formControler]="$any(formLogin.controls['password'])"
-           control="password"
-           ariaLabel="Senha"
-           placeholder="Senha"
-           id="pass"
-           type="password">
-          </app-input-field>
+            <app-input-field
+            [formControler]="$any(formLogin.controls['password'])"
+            control="password" ariaLabel="Senha"
+            placeholder="Senha"
+            id="pass"
+            type="password">
+            </app-input-field>
 
-          <div class="group mb-3.5">
-            <input type="submit" class="hover:bg-slate-300 transition ease-in-out duration-500 button w-full block cursor-pointer py-3.5 px-5 bg-slate-200 text-slate-600 font-bold rounded-3xl " value="ENTRAR">
+            <div class="group mb-3.5">
+              <input
+              class="hover:bg-slate-300 transition ease-in-out duration-500 button w-full block cursor-pointer py-3.5 px-5 bg-slate-200 text-slate-600 font-bold rounded-3xl "
+              type="submit"
+              value="ENTRAR">
+            </div>
+          </form>
+
+          <div class="hr"></div>
+          <div class="footer">
+            <a href="#forgot">Esqueceu a senha?</a>
           </div>
-        </form>
-
-        <div class="hr"></div>
-        <div class="footer">
-          <a href="#forgot">Esqueceu a senha?</a>
-        </div>
-      </div>
-
-      <div class="sign-up-htm top-12 absolute inset-x-0 bottom-0">
-
-        <form [formGroup]="formRegister" (ngSubmit)="submitRegister()">
-
-         <app-input-field
-          [formControler]="$any(formRegister.controls['nameRegister'])"
-          control="nameRegister"
-          ariaLabel="Nome"
-          placeholder="Nome"
-          id="nameRegister"
-          type="text">
-         </app-input-field>
-
-         <app-input-field
-          [formControler]="$any(formRegister.controls['emailRegister'])"
-          control="emailRegister"
-          ariaLabel="Email"
-          placeholder="Email"
-          id="emailRegister"
-          type="email">
-         </app-input-field>
-
-         <app-input-field
-          [formControler]="$any(formRegister.controls['passwordRegister'])"
-          control="passwordRegister"
-          ariaLabel="Senha"
-          placeholder="Senha"
-          id="passRegister"
-          type="password">
-         </app-input-field>
-
-         <app-input-field
-          [formControler]="$any(formRegister.controls['passwordConfirmRegister'])"
-          control="passwordConfirmRegister"
-          ariaLabel="Confirmar Senha"
-          placeholder="Confirmar Senha"
-          id="confirmSenhaRegister"
-          type="password">
-         </app-input-field>
-
-         <input type="file" id="fileRegister" name="fileRegister" (change)="onChange($event)">
-
-        <div class="group mb-3.5">
-          <input
-           (click)="onUpload($event)"
-           type="submit"
-           class="button hover:bg-slate-300 w-full block cursor-pointer transition ease-in-out duration-500 bg-slate-200 text-slate-600 font-bold py-3.5 px-5 rounded-3xl"
-           value="CADASTRAR">
         </div>
 
-      </form>
-        <div class="hr"></div>
+        <div class="sign-up-htm top-12 absolute inset-x-0 bottom-0 flex">
 
+          <form [formGroup]="formRegister" (ngSubmit)="submitRegister()">
+
+            <app-input-field
+            [formControler]="$any(formRegister.controls['nameRegister'])"
+            control="nameRegister"
+            ariaLabel="Nome"
+            placeholder="Nome"
+            id="nameRegister"
+            type="text">
+            </app-input-field>
+
+            <app-input-field
+            [formControler]="$any(formRegister.controls['emailRegister'])"
+            control="emailRegister"
+            ariaLabel="Email"
+            placeholder="Email"
+            id="emailRegister"
+            type="email">
+            </app-input-field>
+
+            <app-input-field
+            [formControler]="$any(formRegister.controls['passwordRegister'])"
+            control="passwordRegister"
+            ariaLabel="Senha"
+            placeholder="Senha"
+            id="passRegister"
+            type="password">
+            </app-input-field>
+
+            <app-input-field
+            [formControler]="$any(formRegister.controls['passwordConfirmRegister'])"
+            control="passwordConfirmRegister"
+            ariaLabel="Confirmar Senha"
+            placeholder="Confirmar Senha"
+            id="confirmSenhaRegister"
+            type="password">
+            </app-input-field>
+
+            <input class="file:rounded-full file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:cursor-pointer
+            file:text-sky-700
+            file:text-sm file:font-semibold
+            hover:file:bg-slate-300 transition ease-in-out duration-500 py-5" type="file" id="fileRegister" name="fileRegister" (change)="onChange($event)">
+
+            <div class="group mb-3.5">
+              <input (click)="onUpload($event)" type="submit"
+                class="button hover:bg-slate-300 w-full block cursor-pointer transition ease-in-out duration-500 bg-slate-200 text-slate-600 font-bold py-3.5 px-5 rounded-3xl"
+                value="CADASTRAR">
+            </div>
+
+          </form>
+          <div class="hr"></div>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
 </main>

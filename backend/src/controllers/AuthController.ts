@@ -71,7 +71,7 @@ export const signup = async (req:any, res:any) => {
       name:newUser.name,
       email:newUser.email,
       password:passwordHash,
-      image:newUser.image ? newUser.image : '/default_quiz.jpg'
+      image:newUser.image ? newUser.image : 'default_quiz.png'
     } as any
   })
 

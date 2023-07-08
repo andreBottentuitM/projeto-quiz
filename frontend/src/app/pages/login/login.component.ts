@@ -52,8 +52,6 @@ export class LoginComponent implements OnInit {
     formData.append('file', this.formRegister.get('fileRegister').value);
 
 
-
-
     if(this.formRegister.valid){
       this.loginService.signUp(formData).subscribe(e=>{
         console.log(e)

@@ -20,3 +20,28 @@ model User {
 
   @@map("users")
 }
+
+model Quiz {
+  id        Int      @id @default(autoincrement())
+  name      String?  @unique
+  image     String   @unique
+  questions Question[]
+
+  @@map("quiz")
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  quizId    Int
+  question String
+  alternativeA String
+  alternativeB String
+  alternativeC String
+  alternativeD String
+  alternativeE String
+  correct String
+
+  quiz Quiz  @relation(fields: [quizId], references: [id])
+
+  @@map("questions")
+}
