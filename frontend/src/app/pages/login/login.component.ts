@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
     if(this.formRegister.valid){
       this.loginService.signUp(formData).subscribe(e=>{
-        console.log(e)
+
       })
     }
   }

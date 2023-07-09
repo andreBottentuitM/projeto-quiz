@@ -42,7 +42,7 @@ export class LoginService {
         next:(user) =>{
           this.setUserToLocalStorage(user)
           this.userSubject.next(user)
-          this.router.navigate(['/'])
+          this.router.navigate([`user/${user.name}`])
         },
         error: (errorResponse) => {
           console.log(errorResponse.error)

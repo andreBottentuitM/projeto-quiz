@@ -10,9 +10,10 @@ import { RankingComponent } from './pages/ranking/ranking.component';
 
 const routes: Routes = [
   {path:"", component:HomeComponent},
+  {path:"user/:id", component:HomeComponent},
   {path:"login", component:LoginComponent, /*canActivate:[AuthGuard]*/},
   {path:"ranking", component:RankingComponent},
-  {path:"quiz", component:InstrucaoComponent},
+  {path:"user/:id/quiz/:slug", component:InstrucaoComponent},
   {path:"quiz/questao", component:QuestaoComponent},
   {path:"inicio", component:InicioComponent}
 
