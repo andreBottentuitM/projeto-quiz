@@ -42,7 +42,8 @@ export class LoginService {
         next:(user) =>{
           this.setUserToLocalStorage(user)
           this.userSubject.next(user)
-          this.router.navigate([`user/${user.name}`])
+          let formatingName = user.name.split(" ").join("-")
+          this.router.navigate([`user/${formatingName}`])
         },
         error: (errorResponse) => {
           console.log(errorResponse.error)

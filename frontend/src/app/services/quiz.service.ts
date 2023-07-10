@@ -25,8 +25,20 @@ export class QuizService {
   }
 
   getCurrentQuiz(quiz: string){
-    console.log('entrou')
+
     return this.http.post<any>("http://localhost:5000/api/getcurrentquiz", {name:quiz}).pipe(
+      tap({next:()=> {
+
+      },
+      error:(errorResponse)=> {
+        console.log(errorResponse.error)
+      }
+    })
+    )
+  }
+
+  getCurrentQuestions(quiz:string){
+    return this.http.post<any>("http://localhost:5000/api/getcurrentquestions", {name:quiz}).pipe(
       tap({next:()=> {
 
       },

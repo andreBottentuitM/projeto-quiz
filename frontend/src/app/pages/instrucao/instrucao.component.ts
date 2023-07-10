@@ -12,7 +12,7 @@ export class InstrucaoComponent implements OnInit {
   quizName:any =""
   quizCurrent:any= ""
 
-  constructor( private route: ActivatedRoute,private quizService:QuizService ) {
+  constructor( private route: ActivatedRoute,private quizService:QuizService, private router: Router ) {
     this.route.params.subscribe(params => this.quizName = params['slug']);
 }
 
@@ -21,6 +21,11 @@ export class InstrucaoComponent implements OnInit {
       this.quizService.getCurrentQuiz(this.quizName).subscribe(dado => {
         this.quizCurrent = dado
       })
+  }
+
+  goToQuestions(){
+    let path = this.router.url
+    this.router.navigate([`${path}/questoes`])
   }
 
 }

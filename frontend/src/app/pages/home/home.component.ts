@@ -9,8 +9,8 @@ import { QuizService } from 'src/app/services/quiz.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  user!:any
 
+  user!:any
   quiz:any = []
 
   constructor(private loginService:LoginService, private quizService:QuizService,
@@ -28,9 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   navigate(quiz:any){
-
     let path = this.router.url
-    console.log(`${path}/quiz`)
     this.router.navigate([`${path}/quiz/${quiz.name.toLowerCase()}`])
   }
 

@@ -32,3 +32,27 @@ export const getcurrentquiz = async (req:any, res:any) => {
   res.send(quiz)
   
 }
+
+export const getCurrentQuestions = async (req:any, res:any) => {
+
+  let currentQuiz = req.body.name
+    
+  const quiz = await prisma.quiz.findFirst({
+    where:{
+      name:currentQuiz
+    }
+  }).then((quiz: any) => {
+    return quiz.id
+  })
+
+  const questions = await prisma.question.findMany({
+    where:{
+      quizId:quiz
+    }
+  }).then((quiz: any) => {
+    return quiz
+  })
+
+  res.send(questions)
+  
+}
