@@ -2,6 +2,13 @@ h3{
   margin:0px
 }
 
+.test{
+  width:800px
+}
+
+.testFocus:focus{
+  background-color:black
+}
 
 input{
   -webkit-appearance: none;
@@ -23,6 +30,4 @@ input:checked{
   background-color: rgb(3 105 161)
 }
 
-label{
-  width:550px
-}
+

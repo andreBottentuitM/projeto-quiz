@@ -125,6 +125,7 @@ const generateTokenReponse = (newUser:any) => {
    });
 
     return {
+      id: newUser.id,
       name: newUser.name,
       email: newUser.email,
       image: `http://localhost:5000/media/${newUser.image}`,

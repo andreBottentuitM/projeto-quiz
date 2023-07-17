@@ -1,30 +1,32 @@
 <main class=" mx-auto mt-16 min-h-screen mb-16 sm:w-max">
+  <div class="test">
   <div class="flex items-center justify-between bg-sky-700 text-white rounded-t-md pt-3 px-3">
     <h1>{{quizName}} - Questão {{currentQuestion.numero}}</h1>
     <div class="flex items-center gap-2">
     <fa-icon [icon]="faClock" class="mb-3 text-xl"></fa-icon>
-    <p class="text-xl">20:00</p>
+    <p class="text-xl">{{time}}</p>
   </div>
   </div>
-  <form [formGroup]="formQuestion" (ngSubmit)="submitQuestion()" class="flex flex-col rounded ">
+  <form [formGroup]="formQuestion" (ngSubmit)="submitQuestion()" class="flex flex-col rounded">
 
       <h3 class="bg-sky-100 p-4">{{currentQuestion.question}}</h3>
-      <div *ngFor="let item of questionOption" class="flex cursor-pointer bg-neutral-50 gap-6 p-7 hover:bg-neutral-200 border-b">
-        <div class="w-7"></div><label class="text-justify cursor-pointer" for=""><input type="radio" [value]="item.valor" formControlName="alternative" class="cursor-pointer bg-sky-200">{{item.desc}}.</label>
-      </div>
+        <label *ngFor="let item of questionOption" class="flex testFocus cursor-pointer bg-neutral-50 gap-6 p-7 hover:bg-neutral-200 border-b focus:bg-neutral-200 border-b" [id]="item.valor">
+          <input type="radio" [id]="item.valor"  [value]="item.valor" formControlName="alternative" class="cursor-pointer bg-sky-200">{{item.desc}}.
+        </label>
       <!-- <div class="flex bg-neutral-50 cursor-pointer gap-6 p-7 border-b hover:bg-neutral-200">
-        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify w-96 cursor-pointer" for="">B) {{currentQuestion.alternativeB}}.</label>
+        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify cursor-pointer" for="">B) {{currentQuestion.alternativeB}}.</label>
       </div>
       <div class="flex bg-neutral-50 cursor-pointer gap-6 p-7 border-b hover:bg-neutral-200">
-        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify w-96 cursor-pointer" for="">C) {{currentQuestion.alternativeC}}.</label>
+        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify cursor-pointer" for="">C) {{currentQuestion.alternativeC}}.</label>
       </div>
       <div class="flex bg-neutral-50 cursor-pointer gap-6 p-7 border-b hover:bg-neutral-200">
-        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify w-96 cursor-pointer" for="">D) {{currentQuestion.alternativeD}}.</label>
+        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify cursor-pointer" for="">D) {{currentQuestion.alternativeD}}.</label>
       </div> -->
     </form>
+  </div>
     <div class="mx-auto flex gap-5 justify-evenly mt-3">
     <button (click)="previous()" class="text-lg text-white bg-sky-700 py-2 px-4 rounded-xl hover:bg-sky-600 transition ease-in-out duration-500">Anterior</button>
-    <button class="text-lg text-white bg-sky-700 py-2 px-3 rounded-xl hover:bg-sky-600 transition ease-in-out duration-500 sm:px-24">Responder</button>
+    <button (click)="response()" class="text-lg text-white bg-sky-700 py-2 px-3 rounded-xl hover:bg-sky-600 transition ease-in-out duration-500 sm:px-24">Responder</button>
     <button (click)="next()" class="text-lg text-white bg-sky-700 py-2 px-4 rounded-xl hover:bg-sky-600 transition ease-in-out duration-500">Próximo</button>
   </div>
 </main>
