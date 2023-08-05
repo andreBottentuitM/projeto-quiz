@@ -12,7 +12,7 @@ export class QuizService {
   constructor(private http: HttpClient) { }
 
   getQuiz(): Observable<any>{
-
+    console.log('porra')
     return this.http.get<any>("http://localhost:5000/api/getquiz").pipe(
       tap({next:(quiz)=> {
         this.quizzes = quiz
@@ -25,9 +25,9 @@ export class QuizService {
   }
 
   getCurrentQuiz(quiz: string){
-
+     console.log('porra')
     return this.http.post<any>("http://localhost:5000/api/getcurrentquiz", {name:quiz}).pipe(
-      tap({next:()=> {
+      tap({next:(data)=> {
 
       },
       error:(errorResponse)=> {
@@ -38,8 +38,9 @@ export class QuizService {
   }
 
   getCurrentQuestions(quiz:string){
+
     return this.http.post<any>("http://localhost:5000/api/getcurrentquestions", {name:quiz}).pipe(
-      tap({next:()=> {
+      tap({next:(data)=> {
 
       },
       error:(errorResponse)=> {

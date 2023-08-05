@@ -24,4 +24,18 @@ export class RankingService {
     )
   }
 
+  setResponse(response:any):Observable<any>{
+
+    return this.http.post<any>("http://localhost:5000/api/setresponse",response).pipe(
+      tap({next:()=> {
+
+      },
+      error:(errorResponse)=> {
+
+      }
+    })
+    )
+
+  }
+
 }

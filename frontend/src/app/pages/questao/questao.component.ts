@@ -21,8 +21,9 @@ export class QuestaoComponent implements OnInit {
   formQuestion: FormGroup | any
   questionOption: any
   answers: any = []
-  time: any = "10:01"
+  time: any = "FINALIZADO"
   date:any = ""
+  userId:any
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,12 +37,39 @@ export class QuestaoComponent implements OnInit {
 
     this.getTime()
 
-    this.quizService.getCurrentQuestions(this.quizName).subscribe(datas=>{
-       this.questions = datas
-       this.currentQuestion = this.questions[0]
-       this.loadForm()
-       this.questionOption = this.getQuestion()
-       this.setTime()
+    this.quizService.getCurrentQuestions(this.quizName).subscribe(data=>{
+      data.quizName = {name:this.quizName}
+      let datasUpdate:any
+      if(localStorage.getItem('currentQuiz')){
+
+        let dataFromLocal:any = localStorage.getItem('currentQuiz')
+        dataFromLocal = JSON.parse(dataFromLocal)
+
+        let quizCurrent:any = localStorage.getItem('quizName')
+        quizCurrent = JSON.parse(quizCurrent)
+
+        if(quizCurrent == this.quizName){
+          datasUpdate = dataFromLocal
+        }
+        else{
+          localStorage.setItem('currentQuiz', JSON.stringify(data))
+          localStorage.setItem('quizName', JSON.stringify(this.quizName))
+          localStorage.removeItem('answers')
+          datasUpdate = data
+        }
+      }
+      else{
+        localStorage.setItem('currentQuiz', JSON.stringify(data))
+        localStorage.setItem('quizName', JSON.stringify(this.quizName))
+        datasUpdate = data
+      }
+
+      this.questions = datasUpdate
+      this.currentQuestion = this.questions[0]
+      this.loadForm()
+      this.questionOption = this.getQuestion()
+      this.setTime()
+
     })
 
     this.quizName = this.quizName[0].toUpperCase() + this.quizName.substring(1)
@@ -49,6 +77,7 @@ export class QuestaoComponent implements OnInit {
 
   getTime(){
     let gettingId:any = localStorage.getItem('UserQuiz')
+    this.userId = JSON.parse(gettingId).id
     gettingId = {quiz:this.quizName, userId: JSON.parse(gettingId).id}
 
     this.rankingService.setTime(gettingId).subscribe(data => {
@@ -102,14 +131,31 @@ export class QuestaoComponent implements OnInit {
   }
 
   response(){
-    this.answers.push({
-      numero: this.currentQuestion.numero,
-      answer: this.formQuestion.controls['alternative'].value
-    })
+    console.log(this.formQuestion.controls['alternative'].value)
+   if(this.formQuestion.controls['alternative'].value){
+    if(localStorage.getItem('answers')){
+      let updateAnswer:any = localStorage.getItem('answers')
+      updateAnswer = JSON.parse(updateAnswer)
+
+      updateAnswer.push({
+        numero: this.currentQuestion.numero,
+        answer: this.formQuestion.controls['alternative'].value
+      })
+      localStorage.setItem('answers', JSON.stringify(updateAnswer))
+    }
+    else{
+      let newAnswer = [{
+        numero: this.currentQuestion.numero,
+        answer: this.formQuestion.controls['alternative'].value
+      }]
+      localStorage.setItem('answers', JSON.stringify(newAnswer))
+    }
 
     this.questions = this.questions.filter((item: any) => {
       return item.numero != this.currentQuestion.numero
     })
+
+    localStorage.setItem('currentQuiz', JSON.stringify(this.questions))
 
     if(this.questions.length > 0){
       this.currentQuestion = this.questions[0]
@@ -118,8 +164,24 @@ export class QuestaoComponent implements OnInit {
       this.formQuestion.get('alternative').reset()
     }
     else{
+      let answers:any = localStorage.getItem('answers')
+      answers = JSON.parse(answers)
+
+      let dataRequisition = {
+        nameQuiz: this.quizName,
+        answers: answers,
+        userId: this.userId
+      }
+
+      this.rankingService.setResponse(dataRequisition).subscribe(data => {
+
+      })
 
     }
+
+   }
+
+
   }
 
   previous(){

@@ -37,14 +37,15 @@ model AngularRanking {
 
 model ReactRanking {
   id        Int      @id @default(autoincrement())
-  userId    Int
+  userId    Int      @unique
   ponctuation  Int?
   limitTime String?
- 
+  duration String?
   result User  @relation(fields: [userId], references: [id])
 
   @@map("reactRanking")
 }
+
 
 model NodeRanking {
   id        Int      @id @default(autoincrement())
