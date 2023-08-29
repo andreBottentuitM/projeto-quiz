@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
 import { InputFieldComponent } from './shared/input-field/input-field.component';
 import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
+import { ModalComponent } from './shared/modal/modal.component'
+import { RankingComponent } from './pages/ranking/ranking.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.comp
     QuestaoComponent,
     ErrorMsgComponent,
     InputFieldComponent,
-    DropdownMenuComponent
+    DropdownMenuComponent,
+    ModalComponent,
+    RankingComponent
   ],
   imports: [
     BrowserModule,

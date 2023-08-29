@@ -24,6 +24,13 @@ export class QuestaoComponent implements OnInit {
   time: any = "FINALIZADO"
   date:any = ""
   userId:any
+  modal:boolean = false
+  duration:string = ""
+  ponctuation:number = 0
+  name:string = ""
+  message:string = ""
+  color:string = ""
+  image:string = ""
 
   constructor(
     private formBuilder: FormBuilder,
@@ -97,9 +104,11 @@ export class QuestaoComponent implements OnInit {
 
    setTime(){
 
-    window.addEventListener("focus", function(){
-      window.location.reload()
-  });
+    if(!this.modal){
+      window.addEventListener("focus", function(){
+        window.location.reload()
+    });
+    }
 
      let minutes:any = this.time.split(':')[0]
      let seconds:any = this.time.split(':')[1]
@@ -131,7 +140,6 @@ export class QuestaoComponent implements OnInit {
   }
 
   response(){
-    console.log(this.formQuestion.controls['alternative'].value)
    if(this.formQuestion.controls['alternative'].value){
     if(localStorage.getItem('answers')){
       let updateAnswer:any = localStorage.getItem('answers')
@@ -175,12 +183,43 @@ export class QuestaoComponent implements OnInit {
 
       this.rankingService.setResponse(dataRequisition).subscribe(data => {
 
+       let getName:any = localStorage.getItem('UserQuiz')
+       this.name = JSON.parse(getName).name
+       this.ponctuation = data.ponctuation
+       this.duration = data.duration
+
+       if(this.ponctuation === 10){
+        this.message = `Excelente!, ${this.name}.`
+        this.color = 'text-green-500'
+        this.image = '../../../assets/excelente.png'
+       }
+       else if(this.ponctuation >= 7){
+        this.message = `Muito bom!, ${this.name}.`
+        this.color = 'text-blue-400'
+        this.image = '../../../assets/bom.png'
+       }
+       else if(this.ponctuation >= 4){
+        this.message = `Ops! Não foi uma das melhores pontuações, ${this.name}.`
+        this.color = 'text-yellow-400'
+        this.image = '../../../assets/neutro.png'
+       }
+       else if(this.ponctuation > 0){
+        this.message = `Você não estava preparado, não é mesmo, ${this.name}?`
+        this.color = 'text-orange-500'
+        this.image = '../../../assets/triste.png'
+       }
+       else if(this.ponctuation === 0){
+        this.message = `Vish!! Nem sorte você teve, ${this.name}.`
+        this.color = 'text-red-700'
+        this.image = '../../../assets/aborrecido.png'
+       }
+       this.modal = true
+
       })
 
     }
 
    }
-
 
   }
 

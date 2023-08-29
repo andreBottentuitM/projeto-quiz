@@ -2,13 +2,17 @@
   <div class="w-fit	mx-auto mt-9 bg-white p-3 rounded shadow-lg ">
 <div class="flex items-center justify-between mb-9 ">
 <h1>Ranking:</h1>
-<select name="" class="border-2" id="">
-  <option value="">Selecione um ranking</option>
-  <option value="">Angular</option>
-  <option value="">Centura</option>
-  <option value="">SQL</option>
-  <option value="">AWS</option>
-</select>
+<div class="flex items-baseline gap-5">
+  <form [formGroup]="formRanking" class="flex flex-col rounded">
+    <select class="border-2" id="" formControlName="rankingSelect">
+      <option *ngFor="let ranking of rankings" [value]="ranking.valor">{{ranking.desc}}</option>
+    </select>
+    </form>
+    <button (click)="selectRanking()" class="bg-sky-700 text-white p-1.5 mt-7 rounded-lg hover:bg-sky-600 hover:bg-sky-600 transition ease-in-out duration-500">
+      Pesquisar
+    </button>
+</div>
+
 </div>
 <table class="table-auto text-center">
   <thead>
@@ -20,7 +24,7 @@
     </tr>
   </thead>
     <tbody>
-      <tr class="text-base bg-sky-100">
+      <tr *ngFor="let item of " class="text-base bg-sky-100">
         <td>1</td>
         <td>André</td>
         <td>10min</td>

@@ -17,47 +17,22 @@ model User {
   password  String  
   image     String?
   createdAt DateTime @default(now())
-  angular   AngularRanking[]
-  react     ReactRanking[]
-  node      NodeRanking[]
+  angular   Ranking[]
 
   @@map("users")
 }
 
-model AngularRanking {
+model Ranking {
   id        Int      @id @default(autoincrement())
-  userId    Int
-  ponctuation  Int?
-  limitTime String?
- 
-  result User  @relation(fields: [userId], references: [id])
-
-  @@map("angularRankings")
-}
-
-model ReactRanking {
-  id        Int      @id @default(autoincrement())
-  userId    Int      @unique
+  userId    Int      
+  quiz     String?
   ponctuation  Int?
   limitTime String?
   duration String?
   result User  @relation(fields: [userId], references: [id])
 
-  @@map("reactRanking")
+  @@map("ranking")
 }
-
-
-model NodeRanking {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  ponctuation  Int?
-  limitTime String?
- 
-  result User  @relation(fields: [userId], references: [id])
-
-  @@map("nodeRanking")
-}
-
 
 model Quiz {
   id        Int      @id @default(autoincrement())

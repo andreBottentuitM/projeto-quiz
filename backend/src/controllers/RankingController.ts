@@ -6,24 +6,27 @@ export const setTime = async (req:any, res:any) => {
     let userId = req.body.userId
     let time = (Date.now() + 601000).toString()
        
-
-    if(quiz == 'react'){
-        const alreadyUser = await prisma.reactRanking.findFirst({
+    console.log(quiz)
+        const alreadyUser = await prisma.ranking.findFirst({
             where:{
-                userId: userId
+                userId: userId,
+                quiz: quiz
             } as any
         })
 
+        console.log(alreadyUser)
+
         if(!alreadyUser){
-            const setTime = await prisma.reactRanking.create({
+            const setTime = await prisma.ranking.create({
                 data:{
                     userId: userId,
+                    quiz: quiz,
                     limitTime: time
                 } as any
             })
         }
 
-        const getTime = await prisma.reactRanking.findFirst({
+        const getTime = await prisma.ranking.findFirst({
             where:{
                 userId: userId
             } as any
@@ -31,7 +34,7 @@ export const setTime = async (req:any, res:any) => {
 
         res.send(getTime)
 
-    }
+    
 }
 
 export const setResponse = async (req:any, res:any) => {
@@ -69,33 +72,43 @@ export const setResponse = async (req:any, res:any) => {
       })
       console.log(points)
       setPoints(points, userId, currentQuiz)
-      setDuration(userId, currentQuiz)
+      const result = await setDuration(userId, currentQuiz)
+      res.send(result)
 
 }
 
 
 const setPoints = async (points:any, userId:number, currentQuiz:any) => {
-  if(currentQuiz === 'react'){
+
+  const id = await prisma.ranking.findFirst({
+    where:{
+      userId: userId,
+      quiz: currentQuiz
+    } as any
+  }).then((id: any)=> {
+     return id.id
+  })
+
     console.log(userId)
-    await prisma.reactRanking.update({
+    await prisma.ranking.update({
       where: {
-        userId: userId
-      },
+        id: id
+      }as any,
       data: {
          ponctuation: points
       }
     })
-  }
+  
    
 }
 
 const setDuration = async (userId:any, currentQuiz:any) => {
 
-  if(currentQuiz === "react"){
-    const limitTime = await prisma.reactRanking.findUnique({
+    const limitTime = await prisma.ranking.findFirst({
       where:{
-        userId: userId
-      }
+        userId: userId,
+        quiz: currentQuiz
+      } as any
     }).then((id: any)=> {
        return id.limitTime
     })
@@ -110,17 +123,41 @@ const setDuration = async (userId:any, currentQuiz:any) => {
       time = `${minutes}:${seconds}`
      }
 
-     await prisma.reactRanking.update({
+     const id = await prisma.ranking.findFirst({
+      where:{
+        userId: userId,
+        quiz: currentQuiz
+      } as any
+    }).then((id: any)=> {
+       return id.id
+    })
+
+     const userResult = await prisma.ranking.update({
       where: {
-        userId: userId
-      },
+        id: id
+      }as any,
       data: {
          duration: time
       }
+    }).then((id:any) => {
+      return id
     })
-
-  }
+    
+    return userResult
   
 }
+
+// export const getRanking = async (quiz:any) => {
+
+//   const id = await prisma.ranking.findMany({
+//     where:{
+//       userId: userId,
+//       quiz: currentQuiz
+//     } as any
+//   }).then((id: any)=> {
+//      return id.id
+//   })
+
+// }
 
 

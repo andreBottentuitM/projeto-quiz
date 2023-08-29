@@ -38,4 +38,16 @@ export class RankingService {
 
   }
 
+  getRanking(response:any):Observable<any>{
+    return this.http.post<any>("http://localhost:5000/api/getranking",response).pipe(
+      tap({next:()=> {
+
+      },
+      error:(errorResponse)=> {
+
+      }
+    })
+    )
+  }
+
 }
