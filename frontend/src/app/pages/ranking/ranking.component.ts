@@ -10,6 +10,7 @@ import { RankingService } from 'src/app/services/ranking.service';
 export class RankingComponent implements OnInit {
 
   rankings:any = []
+  listScoresRanking:any = []
   formRanking:FormGroup | any
 
   constructor(
@@ -29,7 +30,13 @@ export class RankingComponent implements OnInit {
   }
 
   selectRanking(){
-    console.log(this.formRanking.controls['rankingSelect'].value)
+    let quiz = {'quizName':this.formRanking.controls['rankingSelect'].value}
+
+    this.rankingService.getRanking(quiz).subscribe(data=>{
+
+      this.listScoresRanking = data
+      console.log(this.listScoresRanking)
+  })
   }
 
 

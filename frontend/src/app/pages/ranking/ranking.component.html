@@ -18,29 +18,19 @@
   <thead>
     <tr class="text-lg bg-sky-700 text-white">
       <th class="w-28">Rank</th>
+      <th class="w-14"></th>
       <th class="w-28">Nome</th>
       <th class="w-28">Tempo</th>
       <th class="w-28">Pontuação</th>
     </tr>
   </thead>
     <tbody>
-      <tr *ngFor="let item of " class="text-base bg-sky-100">
-        <td>1</td>
-        <td>André</td>
-        <td>10min</td>
-        <td>9/10</td>
-      </tr>
-      <tr class="text-base bg-slate-50">
-        <td>2</td>
-        <td>João</td>
-        <td>5min</td>
-        <td>7/10</td>
-      </tr>
-      <tr class="text-base bg-sky-100">
-        <td>2</td>
-        <td>João</td>
-        <td>5min</td>
-        <td>7/10</td>
+      <tr *ngFor="let item of listScoresRanking; let i = index" [attr.data-index]="i" class="text-base bg-sky-100">
+        <td>{{i+1}}</td>
+        <td><img class="w-14 rounded-full" [src]="item.image"></td>
+        <td>{{item.name}}</td>
+        <td>{{item.duration}}</td>
+        <td>{{item.score}}/10</td>
       </tr>
     </tbody>
 </table>

@@ -147,17 +147,64 @@ const setDuration = async (userId:any, currentQuiz:any) => {
   
 }
 
-// export const getRanking = async (quiz:any) => {
+export const getRanking = async (req:any, res:any) => {
+  let quizName = req.body.quizName
 
-//   const id = await prisma.ranking.findMany({
-//     where:{
-//       userId: userId,
-//       quiz: currentQuiz
-//     } as any
-//   }).then((id: any)=> {
-//      return id.id
-//   })
+  let listRanking:any = []
 
-// }
+  const list = await prisma.ranking.findMany({
+    where:{
+      quiz: quizName
+    } as any
+  }).then((id: any)=> {
+    id.forEach((user:any)=> {
+      listRanking.push({
+        score: user.ponctuation,
+        id: user.userId,
+        duration: user.duration
+      })
+    })
+  })
+
+  const users = await prisma.user.findMany().then((user: any)=> {
+     return user
+  })
+
+  listRanking.forEach((item: any) => {
+    users.forEach((user:any) => {
+      if(item.id === user.id){
+        item['name'] = user.name
+        item['image'] = `http://localhost:5000/media/${user.image}`
+      }
+    })
+  })
+
+  listRanking.sort((a:any,b:any)=> {
+    let minutesA = parseFloat(a.duration.split(':')[0])
+    let secondsA = parseFloat(a.duration.split(':')[1])
+    let minutesB = parseFloat(b.duration.split(':')[0])
+    let secondsB = parseFloat(b.duration.split(':')[1])
+     if(a.score > b.score){
+      return -1
+     }
+     if(a.score < b.score){
+      return 1
+     }
+     if(a.score === b.score && minutesA < minutesB){
+      return -1
+     }
+     else if(minutesA === minutesB && secondsA < secondsB){
+      return -1
+     }
+     if(a.score === b.score && minutesA > minutesB){
+      return 1
+     }else if(minutesA > minutesB && secondsA > secondsB){
+      return 1
+     }
+  })
+
+  res.send(listRanking)
+
+}
 
 

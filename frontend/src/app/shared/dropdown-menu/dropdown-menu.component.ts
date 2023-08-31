@@ -21,6 +21,7 @@ export class DropdownMenuComponent implements OnInit {
   }
 
   get currentUser(){
+    console.log(this.user)
     return this.user;/*Caso o usuário não esteja logado, o valor vai ser undefined,
     caso esteja, vai ter o valor do token*/
   }
