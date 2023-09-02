@@ -48,6 +48,18 @@ export const getCurrentQuestions = async (req:any, res:any) => {
   const questions = await prisma.question.findMany({
     where:{
       quizId:quiz
+    },
+    select: {
+      correct:false,
+      id: true,
+      quizId: true,
+      numero: true,
+      question: true,
+      alternativeA: true,
+      alternativeB: true,
+      alternativeC: true,
+      alternativeD: true,
+      quiz: true
     }
   }).then((quiz: any) => {
     return quiz

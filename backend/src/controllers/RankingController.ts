@@ -113,14 +113,14 @@ const setDuration = async (userId:any, currentQuiz:any) => {
        return id.limitTime
     })
     let timeLeft = parseFloat(limitTime) - Date.now()
-    let time:any = 601000 - timeLeft
-
+    let time = (601000 - timeLeft)
+    let timeMinutesFormat:any
     if(timeLeft > 0){
       let minutes = Math.floor(time / 60000).toString()
       let seconds:any = ((time % 60000) / 1000).toString().split('.')[0]
       minutes = minutes.length === 1 ? `0${minutes}` : minutes
       seconds = seconds.length === 1 ? `0${seconds}` : seconds
-      time = `${minutes}:${seconds}`
+      timeMinutesFormat = `${minutes}:${seconds}`
      }
 
      const id = await prisma.ranking.findFirst({
@@ -137,12 +137,12 @@ const setDuration = async (userId:any, currentQuiz:any) => {
         id: id
       }as any,
       data: {
-         duration: time
+         duration: timeMinutesFormat
       }
     }).then((id:any) => {
       return id
     })
-    
+
     return userResult
   
 }
@@ -155,7 +155,14 @@ export const getRanking = async (req:any, res:any) => {
   const list = await prisma.ranking.findMany({
     where:{
       quiz: quizName
-    } as any
+    } as any,
+    orderBy: [{
+       ponctuation: 'desc'
+    },
+     {  
+       duration: 'asc'
+    }],
+    
   }).then((id: any)=> {
     id.forEach((user:any)=> {
       listRanking.push({
@@ -179,29 +186,29 @@ export const getRanking = async (req:any, res:any) => {
     })
   })
 
-  listRanking.sort((a:any,b:any)=> {
-    let minutesA = parseFloat(a.duration.split(':')[0])
-    let secondsA = parseFloat(a.duration.split(':')[1])
-    let minutesB = parseFloat(b.duration.split(':')[0])
-    let secondsB = parseFloat(b.duration.split(':')[1])
-     if(a.score > b.score){
-      return -1
-     }
-     if(a.score < b.score){
-      return 1
-     }
-     if(a.score === b.score && minutesA < minutesB){
-      return -1
-     }
-     else if(minutesA === minutesB && secondsA < secondsB){
-      return -1
-     }
-     if(a.score === b.score && minutesA > minutesB){
-      return 1
-     }else if(minutesA > minutesB && secondsA > secondsB){
-      return 1
-     }
-  })
+  // listRanking.sort((a:any,b:any)=> {
+  //   let minutesA = parseFloat(a.duration.split(':')[0])
+  //   let secondsA = parseFloat(a.duration.split(':')[1])
+  //   let minutesB = parseFloat(b.duration.split(':')[0])
+  //   let secondsB = parseFloat(b.duration.split(':')[1])
+  //    if(a.score > b.score){
+  //     return -1
+  //    }
+  //    if(a.score < b.score){
+  //     return 1
+  //    }
+  //    if(a.score === b.score && minutesA < minutesB){
+  //     return -1
+  //    }
+  //    else if(minutesA === minutesB && secondsA < secondsB){
+  //     return -1
+  //    }
+  //    if(a.score === b.score && minutesA > minutesB){
+  //     return 1
+  //    }else if(minutesA > minutesB && secondsA > secondsB){
+  //     return 1
+  //    }
+  // })
 
   res.send(listRanking)
 

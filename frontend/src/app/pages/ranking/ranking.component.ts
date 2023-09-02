@@ -33,7 +33,6 @@ export class RankingComponent implements OnInit {
     let quiz = {'quizName':this.formRanking.controls['rankingSelect'].value}
 
     this.rankingService.getRanking(quiz).subscribe(data=>{
-
       this.listScoresRanking = data
       console.log(this.listScoresRanking)
   })

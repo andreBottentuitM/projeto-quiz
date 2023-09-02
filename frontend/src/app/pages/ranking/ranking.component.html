@@ -16,19 +16,19 @@
 </div>
 <table class="table-auto text-center">
   <thead>
-    <tr class="text-lg bg-sky-700 text-white">
-      <th class="w-28">Rank</th>
+    <tr class="text-lg bg-sky-700 text-white border-solid border-black border">
+      <th class="w-14">Rank</th>
       <th class="w-14"></th>
-      <th class="w-28">Nome</th>
+      <th class="w-44">Nome</th>
       <th class="w-28">Tempo</th>
       <th class="w-28">Pontuação</th>
     </tr>
   </thead>
     <tbody>
-      <tr *ngFor="let item of listScoresRanking; let i = index" [attr.data-index]="i" class="text-base bg-sky-100">
-        <td>{{i+1}}</td>
-        <td><img class="w-14 rounded-full" [src]="item.image"></td>
-        <td>{{item.name}}</td>
+      <tr *ngFor="let item of listScoresRanking; let i = index" [attr.data-index]="i" class="text-base bg-sky-100 border-solid border-black border">
+        <td [ngClass]="i === 0 ? 'bg-yellow-400' : i === 1 ? 'bg-stone-500' : i === 2 ? 'bg-yellow-800' : ''">{{i+1}}</td>
+        <td class="border-solid"><img class="w-14 h-14 rounded-full" [src]="item.image"></td>
+        <td>{{item.name.toString()}}</td>
         <td>{{item.duration}}</td>
         <td>{{item.score}}/10</td>
       </tr>
