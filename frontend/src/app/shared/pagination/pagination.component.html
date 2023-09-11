@@ -1,0 +1,7 @@
+<div class="flex gap-1">
+  <div><fa-icon [icon]="faAngleDoubleLeft" class="cursor-pointer text-sky-700 text-xl"></fa-icon></div>
+  <div><fa-icon [icon]="faAngleLeft" class="cursor-pointer text-sky-700 text-xl"></fa-icon></div>
+  <div *ngFor="let item of pagination" #id (click)="setPageRequest(id.innerHTML)" class="cursor-pointer text-sky-700 text-xl">{{item}}</div>
+  <div><fa-icon [icon]="faAngleRight" class="cursor-pointer text-sky-700 text-xl"></fa-icon></div>
+  <div><fa-icon [icon]="faAngleDoubleRight" class="cursor-pointer text-sky-700 text-xl"></fa-icon></div>
+</div>
