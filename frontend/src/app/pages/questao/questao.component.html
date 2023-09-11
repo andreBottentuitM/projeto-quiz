@@ -8,20 +8,10 @@
   </div>
   </div>
   <form [formGroup]="formQuestion" (ngSubmit)="submitQuestion()" class="flex flex-col rounded">
-
       <h3 class="bg-sky-100 p-4">{{currentQuestion.question}}</h3>
         <label *ngFor="let item of questionOption" class="flex testFocus cursor-pointer bg-neutral-50 gap-6 p-7 hover:bg-neutral-200 border-b focus:bg-neutral-200 border-b" [id]="item.valor">
           <input type="radio" [id]="item.valor"  [value]="item.valor" formControlName="alternative" class="cursor-pointer bg-sky-200">{{item.desc}}.
         </label>
-      <!-- <div class="flex bg-neutral-50 cursor-pointer gap-6 p-7 border-b hover:bg-neutral-200">
-        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify cursor-pointer" for="">B) {{currentQuestion.alternativeB}}.</label>
-      </div>
-      <div class="flex bg-neutral-50 cursor-pointer gap-6 p-7 border-b hover:bg-neutral-200">
-        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify cursor-pointer" for="">C) {{currentQuestion.alternativeC}}.</label>
-      </div>
-      <div class="flex bg-neutral-50 cursor-pointer gap-6 p-7 border-b hover:bg-neutral-200">
-        <div class="w-7"><input type="radio" formControlName="alternative" class="cursor-pointer bg-sky-200"></div><label class="text-justify cursor-pointer" for="">D) {{currentQuestion.alternativeD}}.</label>
-      </div> -->
     </form>
   </div>
     <div class="mx-auto flex gap-5 justify-evenly mt-3">

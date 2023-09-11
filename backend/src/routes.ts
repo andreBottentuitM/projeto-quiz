@@ -2,7 +2,7 @@ import {Router} from 'express';
 import {AuthValidator} from './validators/AuthValidator'
 import {signup,signin} from './controllers/AuthController'
 import {getQuiz, getcurrentquiz, getCurrentQuestions} from './controllers/QuizController'
-import {setTime, setResponse,getRanking } from './controllers/RankingController'
+import {setTime, setResponse,getPage } from './controllers/RankingController'
 
 
 const router = Router();
@@ -22,7 +22,7 @@ router.post('/settime', setTime)
 
 router.post('/setresponse', setResponse)
 
-router.post('/getranking', getRanking)
+router.post('/getpage', getPage)
 
 
   export default router;

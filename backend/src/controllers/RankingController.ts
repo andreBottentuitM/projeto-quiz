@@ -147,14 +147,27 @@ const setDuration = async (userId:any, currentQuiz:any) => {
   
 }
 
-export const getRanking = async (req:any, res:any) => {
-  let quizName = req.body.quizName
+export const getPage = async (req:any, res:any) => {
+  let selected = req.body.selected
+  let perPage = req.body.rowsPerPage
+  let page = req.query.page
+  let offSet = 0
 
-  let listRanking:any = []
+  if(page){
+    offSet = (parseInt(page) - 1) * perPage
+  }
+
+
+  let listRanking:any = {
+    count:0,
+    list: []
+  }
 
   const list = await prisma.ranking.findMany({
+    skip: offSet,
+    take: perPage,
     where:{
-      quiz: quizName
+      quiz: selected
     } as any,
     orderBy: [{
        ponctuation: 'desc'
@@ -164,11 +177,17 @@ export const getRanking = async (req:any, res:any) => {
     }],
     
   }).then((id: any)=> {
+    let index = perPage - 1
     id.forEach((user:any)=> {
-      listRanking.push({
+      let ranking = page * perPage - index
+
+      index -= 1
+      console.log(ranking)
+      listRanking.list.push({
         score: user.ponctuation,
         id: user.userId,
-        duration: user.duration
+        duration: user.duration,
+        ranking: ranking
       })
     })
   })
@@ -177,7 +196,7 @@ export const getRanking = async (req:any, res:any) => {
      return user
   })
 
-  listRanking.forEach((item: any) => {
+  listRanking.list.forEach((item: any) => {
     users.forEach((user:any) => {
       if(item.id === user.id){
         item['name'] = user.name
@@ -186,29 +205,13 @@ export const getRanking = async (req:any, res:any) => {
     })
   })
 
-  // listRanking.sort((a:any,b:any)=> {
-  //   let minutesA = parseFloat(a.duration.split(':')[0])
-  //   let secondsA = parseFloat(a.duration.split(':')[1])
-  //   let minutesB = parseFloat(b.duration.split(':')[0])
-  //   let secondsB = parseFloat(b.duration.split(':')[1])
-  //    if(a.score > b.score){
-  //     return -1
-  //    }
-  //    if(a.score < b.score){
-  //     return 1
-  //    }
-  //    if(a.score === b.score && minutesA < minutesB){
-  //     return -1
-  //    }
-  //    else if(minutesA === minutesB && secondsA < secondsB){
-  //     return -1
-  //    }
-  //    if(a.score === b.score && minutesA > minutesB){
-  //     return 1
-  //    }else if(minutesA > minutesB && secondsA > secondsB){
-  //     return 1
-  //    }
-  // })
+  await prisma.ranking.count({
+    where: {
+      quiz: selected
+    },
+  }).then((count:any) => {
+    listRanking.count = count
+  }) 
 
   res.send(listRanking)
 

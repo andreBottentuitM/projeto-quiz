@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RankingService } from 'src/app/services/ranking.service';
 
 @Component({
@@ -12,10 +13,12 @@ export class RankingComponent implements OnInit {
   rankings:any = []
   listScoresRanking:any = []
   formRanking:FormGroup | any
+  datasPagination:any
 
   constructor(
     private rankingService: RankingService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -30,12 +33,21 @@ export class RankingComponent implements OnInit {
   }
 
   selectRanking(){
-    let quiz = {'quizName':this.formRanking.controls['rankingSelect'].value}
 
-    this.rankingService.getRanking(quiz).subscribe(data=>{
-      this.listScoresRanking = data
-      console.log(this.listScoresRanking)
-  })
+    let quiz = this.formRanking.controls['rankingSelect'].value
+    this.router.navigate([`/ranking/${quiz}`],{queryParams: { page: `1` }})
+      this.datasPagination = {
+        rowsPerPage: 3,
+        service: this.rankingService,
+        selected: quiz,
+        page: '1'
+      }
+
+  }
+
+  dataList(event:any){
+    console.log(event)
+    this.listScoresRanking = event
   }
 
 

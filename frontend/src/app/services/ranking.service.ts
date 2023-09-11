@@ -50,4 +50,16 @@ export class RankingService {
     )
   }
 
+  getPage(page:any){
+    return this.http.post<any>(`http://localhost:5000/api/getpage?page=${page.page}`, page).pipe(
+      tap({next:()=> {
+
+      },
+      error:(errorResponse)=> {
+
+      }
+    })
+    )
+  }
+
 }

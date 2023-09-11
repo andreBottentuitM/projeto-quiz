@@ -25,8 +25,8 @@
     </tr>
   </thead>
     <tbody>
-      <tr *ngFor="let item of listScoresRanking; let i = index" [attr.data-index]="i" class="text-base bg-sky-100 border-solid border-black border">
-        <td [ngClass]="i === 0 ? 'bg-yellow-400' : i === 1 ? 'bg-stone-500' : i === 2 ? 'bg-yellow-800' : ''">{{i+1}}</td>
+      <tr *ngFor="let item of listScoresRanking" class="text-base bg-sky-100 border-solid border-black border">
+        <td [ngClass]="item.ranking === 0 ? 'bg-yellow-400' : item.ranking === 1 ? 'bg-stone-500' : item.ranking === 2 ? 'bg-yellow-800' : ''">{{item.ranking}}</td>
         <td class="border-solid"><img class="w-14 h-14 rounded-full" [src]="item.image"></td>
         <td>{{item.name.toString()}}</td>
         <td>{{item.duration}}</td>
@@ -34,5 +34,12 @@
       </tr>
     </tbody>
 </table>
+<app-pagination
+[datasPagination]="datasPagination"
+(dataList)="dataList($event)"
+>
+</app-pagination>
 </div>
 </div>
+
+

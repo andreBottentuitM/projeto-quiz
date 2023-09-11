@@ -18,6 +18,7 @@ import { InputFieldComponent } from './shared/input-field/input-field.component'
 import { DropdownMenuComponent } from './shared/dropdown-menu/dropdown-menu.component';
 import { ModalComponent } from './shared/modal/modal.component'
 import { RankingComponent } from './pages/ranking/ranking.component'
+import { PaginationComponent } from './shared/pagination/pagination.component'
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RankingComponent } from './pages/ranking/ranking.component'
     InputFieldComponent,
     DropdownMenuComponent,
     ModalComponent,
-    RankingComponent
+    RankingComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

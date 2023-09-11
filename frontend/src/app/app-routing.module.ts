@@ -13,6 +13,7 @@ const routes: Routes = [
   {path:"user/:id", component:HomeComponent},
   {path:"login", component:LoginComponent, /*canActivate:[AuthGuard]*/},
   {path:"ranking", component:RankingComponent},
+  {path:"ranking/:id", component:RankingComponent},
   {path:"user/:id/quiz/:slug", component:InstrucaoComponent},
   {path:"user/:id/quiz/:slug/questoes", component:QuestaoComponent},
   {path:"inicio", component:InicioComponent}
